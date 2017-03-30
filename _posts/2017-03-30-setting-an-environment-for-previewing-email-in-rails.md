@@ -13,7 +13,7 @@ published: true
 ---
 Developing email templates to be sent by our Rails application may sometimes be a long and tedious operation because under development you must continuously send to yourself the email in order to test the changes.
 
-If you don’t want to waste your time, Rails provides a very helpful tool for those who need to build the layout for the emails of our application: <em>ActionMailer::Preview</em>. In fact, with this tool (available from Rails 4.1), you are able to generate the Rails <em>mailer</em> view without the need to actually send the email.
+If you don’t want to waste your time, Rails provides a very helpful tool for those who need to build the layout for the emails of our application: <em>ActionMailer::Preview</em>. In fact, with this tool (available from Rails 4.1), you are able to generate the Rails mailer view without the need to actually send the email.
 <!--more-->
 
 Let’s start by setting up the email template and controller action with ActionMailer. We will generate a Mailer which sends a welcome email to users who sign up on our website.
