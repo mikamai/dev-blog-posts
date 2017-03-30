@@ -1,8 +1,8 @@
 ---
 ID: 1263
 post_title: >
-  Setting an environment for previewing
-  email in Rails
+  Previewing email in Rails with
+  ActionMailer::Preview and Letter Opener
 author: Matteo Revelli
 post_date: 2017-03-30 15:02:23
 post_excerpt: ""
@@ -13,11 +13,10 @@ published: true
 ---
 Developing email templates to be sent by our Rails application may sometimes be a long and tedious operation because under development you must continuously send to yourself the email in order to test the changes.
 
-If you don’t want to waste your time, Rails provides a very helpful tool for those who need to build the layout for the emails of our application: <em>ActionMailer::Preview</em>. In fact, with this tool (available from Rails 4.1), you are able to make the email preview, just as it happens when you work with the Rails views.
+If you don’t want to waste your time, Rails provides a very helpful tool for those who need to build the layout for the emails of our application: <em>ActionMailer::Preview</em>. In fact, with this tool (available from Rails 4.1), you are able to generate the Rails <em>mailer</em> view without the need to actually send the email.
+<!--more-->
 
-The next step is to configure Letter Opener Web. This gem allows us to simulate sending a mail through our Rails application. In this way, we can reduce the risk of sending our test email to some address while we are working on it.<!--more-->
-
-Let’s start by setting the environment in order to be able to preview our email with ActionMailer. To do this, we can generate a Mailer which sends a welcome email to users who sign up on our website.
+Let’s start by setting up the email template and controller action with ActionMailer. We will generate a Mailer which sends a welcome email to users who sign up on our website.
 
 First of all, generate the Mailer:
 
@@ -39,7 +38,7 @@ class UserMailer &lt; ApplicationMailer
 end
 ```
 ```
-# /app/models/user.rb
+# /app/models/user.rb
 def send_welcome_email
   UserMailer.welcome_email(self).deliver_now
 end
@@ -57,7 +56,7 @@ def create
 end
 ```
 
-Afterwards it is time to edit our email template by showing the username that our application has just recorded.
+Now we want our email template to show the username that our application has just recorded.
 ```
 # /app/views/user_mailer/welcome_email.html.erb
 &lt;h1&gt;Welcome &lt;%= @user.name %&gt;&lt;/h1&gt;
@@ -66,9 +65,23 @@ Afterwards it is time to edit our email template by showing the username that ou
 &lt;/p&gt;
 ```
 
-Let’s setup the email preview. The command we have just launched, has generated the Mailer and created this file: <code><span style="color: #999999;">/test/mailers/previews/</span>user_mailer_preview.rb</code>
+Now, what if we wanted to see our welcome email in our browser to check that it looks as expected? There's where <em>ActionMailer::Preview</em> comes in handy. Actually the Rails generator has already done most of the work for us. The command we launched at the beginning not only generated the Mailer but it created also this file: <code><span style="color: #999999;">/test/mailers/previews/</span>user_mailer_preview.rb</code> (note: if you have <code>rspec</code> bundled in your project the file will be created under <code>/spec</code>)
 
-So, edit this file in order to display the preview of our email.
+The file already contains the code needed for the preview to work:
+```
+# /test/mailers/previews/user_mailer_preview.rb
+
+# Preview all emails at http://localhost:3000/rails/mailers/user_mailer
+class UserMailerPreview &lt; ActionMailer::Preview
+
+# Preview this email at http://localhost:3000/rails/mailers/user_mailer/welcome_email
+  def welcome_email
+    UserMailer.welcome_email
+  end
+end
+```
+
+All we have to do is edit it, since we have modified <code>welcome_email</code> to accept the username as parameter:
 ```
 # /test/mailers/previews/user_mailer_preview.rb
 
@@ -81,12 +94,17 @@ class UserMailerPreview &lt; ActionMailer::Preview
   end
 end
 ```
-Now we can install Letter Opener Web to simulate sending emails. Add this gem to Gemfile and run `bundle install`:
+Et voila! As the comment in the file says, the email preview is now visible at <code>http://localhost:3000/rails/mailers/user_mailer/welcome_email</code> when the <code>rails server</code> is up and running.
+
+Convenient as this approach is, it still requires us to take care of the <code>test/mailer/previews</code> file in addition to the mailer proper: we have to modify it and keep it up to date to reflect changes in our mailer methods. A different approach which avoids this extra work is using the Letter Opener gem. This gem reroutes all mail sent through our Rails application to be displayed in the browser instead. This is also very useful in the staging environment, if for some reason you have to use production data, because it avoids the risk of sending out test email to production addresses while testing.<!--more-->
+
+The gem is added to the gemfile the usual way:
 ```
 group :development do
   gem &#039;letter_opener_web&#039;
 end
 ```
+and then you run `bundle install`
 
 In our routes:
 ```
@@ -98,7 +116,7 @@ Configure delivery method on your <span style="color: #999999;">`config/environm
 ```
 config.action_mailer.delivery_method = :letter_opener_web
 ```
-Once we have signed up, the application delivers you a welcome email which can be seen on this url: `http://localhost:3000/letter_opener`
+At this point we can do the action that would trigger the email notification (in our case signing up to the application) and the welcome email is generated and 'sent' to the letter opener mailbox. All email generated by the application can now be seen at this url: `http://localhost:3000/letter_opener`
 
 <img class="aligncenter wp-image-1280 size-large" src="https://dev.mikamai.com/wp-content/uploads/2017/03/letter_opener-1024x525.png" alt="" width="640" height="328" />
 
