@@ -11,9 +11,10 @@ permalink: >
   https://dev.mikamai.com/2017/02/22/how-to-share-rails-i18n-messages-with-react-through-webpack/
 published: true
 ---
-Very specific title hu? This time I'm here for sharing a solution for a specific problem I encountered a couple of days ago.
+This time I'm here for sharing a solution for a specific problem I encountered a couple of days ago.
 
 There's this existing Rails monolithic application. Team and customer decided that time had come for this app to be decoupled in two components: Rails would do its usual work as an administration and API backend, while React would be used for the frontend component. Everything related to the frontend would then be rewritten, keeping the same behaviour and visual design. But there are a lot of translations related to the user experience and that have now to be included in the javascript bundle, while they were before used by the server.
+<!--more-->
 
 To do so, I was aiming to write a webpack plugin that could give access to the Rails yml translations. Then I discovered the [Virtual Module Plugin](https://github.com/rmarscher/virtual-module-webpack-plugin): During webpack compilation this plugin [injects a fake file](https://github.com/rmarscher/virtual-module-webpack-plugin/blob/master/index.js#L54) containing the given text.
 
