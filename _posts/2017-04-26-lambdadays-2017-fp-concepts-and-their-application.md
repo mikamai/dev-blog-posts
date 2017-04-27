@@ -53,7 +53,7 @@ When running the following code in <a href="https://hexdocs.pm/iex/IEx.html" tar
 ```
 flow = [1,2,3] |&gt; Flow.from_enumerable() |&gt; Flow.map(&amp; &amp;1 + 1)
 ```
-it does nothing more than returning the following data structure
+it does nothing more than returning the following data structure*
 ```
 %Experimental.Flow{operations: [{:mapper, :map,
 [#Function&lt;6.118419387/1 in :erl_eval.expr/5&gt;]}], options: [stages: 4],
@@ -95,3 +95,16 @@ I hope that this brief summary helped to shed a bit of light on the concept of l
 I also hope to have the chance to write about these topics in my future articles!
 
 Cheers and to the next time! 😄
+
+&nbsp;
+
+*Actually, as pointed out by my colleague <a href="https://dev.mikamai.com/author/massimomikamai-com/">Massimo</a> (thanks a lot!) Flow doesn't reside anymore under the namespace <code>Experimental</code> aso what you really end up when doing `flow = [1,2,3] |&gt; Flow.from_enumerable() |&gt; Flow.map(&amp; &amp;1 + 1)` is:
+
+```
+
+%Flow{operations: [{:mapper, :map,
+[#Function]}], options: [stages: 4],
+producers: {:enumerables, [[1, 2, 3]]},
+window: %Flow.Window.Global{periodically: [], trigger: nil}}
+
+```
