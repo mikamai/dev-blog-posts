@@ -96,7 +96,7 @@ I also hope to have the chance to write about these topics in my future articles
 
 Cheers and to the next time! 😄
 
-<span id="erratum">*</span>Actually, as pointed out by my colleague <a href="https://dev.mikamai.com/author/massimomikamai-com/">Massimo</a> (thanks a lot!) Flow doesn't reside anymore under the namespace <code>Experimental</code> aso what you really end up when doing `flow = [1,2,3] |&gt; Flow.from_enumerable() |&gt; Flow.map(&amp; &amp;1 + 1)` is:
+<span id="erratum">*</span>Actually, as pointed out by my colleague <a href="https://dev.mikamai.com/author/massimomikamai-com/" target="_blank" rel="noopener noreferrer">Massimo</a> (thanks a lot!) Flow doesn't reside anymore under the namespace <code>Experimental</code> aso what you really end up when doing `flow = [1,2,3] |&gt; Flow.from_enumerable() |&gt; Flow.map(&amp; &amp;1 + 1)` is:
 
 ```
 %Flow{operations: [{:mapper, :map,
