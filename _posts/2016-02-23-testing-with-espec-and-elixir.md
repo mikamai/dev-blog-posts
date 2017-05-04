@@ -21,6 +21,8 @@ you can find the documentation <a href="http://elixir-lang.org/docs/stable/ex_un
 still when I use it I feel its assertion syntax is a bit harsh. So I&rsquo;ve recently started using <a href="https://github.com/antonmi/espec">Espec</a>, 
 a different testing library ispired by the awesome ruby <a href="https://github.com/rspec/rspec">Rspec</a> testing framework.</p>
 
+<!--more-->
+
 <p>Unlike other alternatives this library is not built on ExUnit, so you can&rsquo;t mix the two assertion syntaxes for example, 
 but on the other hand you get a more polished finish.</p>
 
