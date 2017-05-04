@@ -14,7 +14,7 @@ tumblr_mikamayhem_permalink:
 tumblr_mikamayhem_id:
   - "145964907404"
 ---
-<p>This is a follow-up from Day 1, if you are interested check it out at this <a href="http://dev.mikamai.com/post/145258317709/what-ive-learned-at-jsday-2016-in-verona">link</a></p>
+<p>This is a follow-up from Day 1<!--more-->, if you are interested check it out at this <a href="http://dev.mikamai.com/post/145258317709/what-ive-learned-at-jsday-2016-in-verona">link</a></p>
 
 <h2>Keynote: Shipping one of the largest Microsoft JavaScript applications (Visual Studio Code&rsquo;s story)</h2>
 
