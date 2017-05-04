@@ -21,6 +21,7 @@ By spawning hundreds, thousands or even millions of these processes you can achi
 explains.</p> 
 <p>The server/client architecture builds on such lightweight processes, can handle state, and is one of the keys to the 
 great results that can be achieved using Elixir.</p>
+<!--more-->
 
 <p>Let&rsquo;s build a server starting from this simple calculator module code:</p>
 <pre><code>
