@@ -14,7 +14,8 @@ tumblr_mikamayhem_permalink:
 tumblr_mikamayhem_id:
   - "144601142554"
 ---
-<p>Some days ago Ecto version 2.0.0-rc.5 has been released. So Ecto 2 is coming and exploring how it works and its new features is a good idea .</p>
+<p>Some days ago Ecto version 2.0.0-rc.5 has been released. So Ecto 2 is coming and exploring how it works and its new features is a good idea.</p>
+<!--more-->
 
 <p>First, from <a href="https://hex.pm/packages/ecto">hex.pm</a>, <i>Ecto is a domain specific language to write queries and interacting with databases in Elixir.</i></p>
 
