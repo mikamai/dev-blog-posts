@@ -16,7 +16,7 @@ So, what is ExVCR? If you come from the Rails land, it's the Elixir version of V
 "Record and replay HTTP interactions library for elixir. It’s inspired by Ruby’s VCR, and trying to provide similar functionalities."
 It allows you to make API calls and record those on "cassettes", allowing you to replay the recordings at every test run, decoupling the test phase from the API server and permitting offline tests.
 
-To start using it, we have to add in `config/mix.exs` the correct dependency:
+<!--more-->To start using it, we have to add in `config/mix.exs` the correct dependency:
 
 <script src="https://gist.github.com/ecarnevale/3a3a10b5bbae694d725de5a956d04d81.js?file=mix.exs"></script>
 
