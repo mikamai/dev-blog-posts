@@ -12,7 +12,7 @@ permalink: >
 published: true
 ---
 <h2>Problem</h2>
-Given an array of measurements ordered by time we have to implement a function that return an array which will be filled with null measurements for every missing one.
+Given an array of measurements ordered by time we have to implement a function that returns an array which will be filled with null measurements for every missing one.
 
 In particular we want at least a measure for each hour after the time the first measure was taken.
 
