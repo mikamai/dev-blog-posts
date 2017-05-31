@@ -34,7 +34,7 @@ touch .sekrets.key
 echo "42" > .sekrets.key
 
 # and gitignore it:
-echo ".sekrets.key" > .gitignore
+echo ".sekrets.key" >> .gitignore
 
 # create and edit the dotenv file:
 touch .env.enc
