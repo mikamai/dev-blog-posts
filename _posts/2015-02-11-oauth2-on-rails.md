@@ -105,7 +105,7 @@ end
 
 <p>The directive <code>before_action :doorkeeper_authorize!, only: :me</code> applies only to the <code>me</code> action, and it basically looks for a <code>doorkeeper_token</code>, an object built starting from the oauth authorization code, if not found it will render with a <code>401 Unauthorized</code> header. The same token object is then used in the <code>me</code> action body to retrieve the user details, which will be rendered as JSON.</p>
 
-<p>Let&rsquo;s start the server and see what happens if we try to access the <code>/me</code> page:</p>
+<p>Now we need to define <code>root_path</code> as Devise requires (please read the gem <a href="https://github.com/plataformatec/devise">readme</a>), then we can start the server and see what happens if we try to access the <code>/me</code> page:</p>
 <pre><code>
 rails s
 
