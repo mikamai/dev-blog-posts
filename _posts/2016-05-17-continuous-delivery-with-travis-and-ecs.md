@@ -24,7 +24,7 @@ What’s missing in those posts is how to do a painless deploy.
 Normally you would:
 
 - push on your docker repo the new image
-- open your task definition 
+- open your task definition
 ![ECS Task Definition](https://dev.mikamai.com/wp-content/uploads/2016/05/ecs_task_dash-640x376.png)
 - update it without changing anything. This will create a new revision for it
 - open the app service in the ECS cluster
@@ -41,16 +41,16 @@ For this post I used a Rails app that is being tested on Travis CI. What I want 
 
 I already have a running ECS Cluster, with a running service, and Travis is already running.
 
-### Continuous docker building & pushing
+### Continuous docker building &amp; pushing
 
 First thing I need is to let Travis build and push docker images when specs are green. Add the following to your `.travis.yml`:
 
 ```yaml
 sudo: required
 services:
-  - docker
+- docker
 after_success:
-  - bin/docker_push.sh
+- bin/docker_push.sh
 ```
 
 We’re telling Travis that:
@@ -65,26 +65,26 @@ The content of `docker_push.sh` is the following:
 #! /bin/bash
 # Push only if it&#039;s not a pull request
 if [ -z &quot;$TRAVIS_PULL_REQUEST&quot; ] || [ &quot;$TRAVIS_PULL_REQUEST&quot; == &quot;false&quot; ]; then
-  # Push only if we&#039;re testing the master branch
-  if [ &quot;$TRAVIS_BRANCH&quot; == &quot;master&quot; ]; then
-  
-    # This is needed to login on AWS and push the image on ECR
-    # Change it accordingly to your docker repo
-    pip install --user awscli
-    export PATH=$PATH:$HOME/.local/bin
-    eval $(aws ecr get-login --region $AWS_DEFAULT_REGION)
-    
-    # Build and push
-    docker build -t $IMAGE_NAME .
-    echo &quot;Pushing $IMAGE_NAME:latest&quot;
-    docker tag $IMAGE_NAME:latest &quot;$REMOTE_IMAGE_URL:latest&quot;
-    docker push &quot;$REMOTE_IMAGE_URL:latest&quot;
-    echo &quot;Pushed $IMAGE_NAME:latest&quot;
-  else
-    echo &quot;Skipping deploy because branch is not &#039;master&#039;&quot;
-  fi
+# Push only if we&#039;re testing the master branch
+if [ &quot;$TRAVIS_BRANCH&quot; == &quot;master&quot; ]; then
+
+# This is needed to login on AWS and push the image on ECR
+# Change it accordingly to your docker repo
+pip install --user awscli
+export PATH=$PATH:$HOME/.local/bin
+eval $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+
+# Build and push
+docker build -t $IMAGE_NAME .
+echo &quot;Pushing $IMAGE_NAME:latest&quot;
+docker tag $IMAGE_NAME:latest &quot;$REMOTE_IMAGE_URL:latest&quot;
+docker push &quot;$REMOTE_IMAGE_URL:latest&quot;
+echo &quot;Pushed $IMAGE_NAME:latest&quot;
 else
-  echo &quot;Skipping deploy because it&#039;s a pull request&quot;
+echo &quot;Skipping deploy because branch is not &#039;master&#039;&quot;
+fi
+else
+echo &quot;Skipping deploy because it&#039;s a pull request&quot;
 fi
 ```
 
@@ -108,15 +108,15 @@ I downloaded it in my bin folder. In addition, I added a new script, `bin/ecs_de
 #! /bin/bash
 # Deploy only if it&#039;s not a pull request
 if [ -z &quot;$TRAVIS_PULL_REQUEST&quot; ] || [ &quot;$TRAVIS_PULL_REQUEST&quot; == &quot;false&quot; ]; then
-  # Deploy only if we&#039;re testing the master branch
-  if [ &quot;$TRAVIS_BRANCH&quot; == &quot;master&quot; ]; then
-    echo &quot;Deploying $TRAVIS_BRANCH on $TASK_DEFINITION&quot;
-    ./bin/ecs-deploy -c $TASK_DEFINITION -n $SERVICE -i $REMOTE_IMAGE_URL:$TRAVIS_BRANCH
-  else
-    echo &quot;Skipping deploy because it&#039;s not an allowed branch&quot;
-  fi
+# Deploy only if we&#039;re testing the master branch
+if [ &quot;$TRAVIS_BRANCH&quot; == &quot;master&quot; ]; then
+echo &quot;Deploying $TRAVIS_BRANCH on $TASK_DEFINITION&quot;
+./bin/ecs-deploy -c $TASK_DEFINITION -n $SERVICE -i $REMOTE_IMAGE_URL:$TRAVIS_BRANCH
 else
-  echo &quot;Skipping deploy because it&#039;s a PR&quot;
+echo &quot;Skipping deploy because it&#039;s not an allowed branch&quot;
+fi
+else
+echo &quot;Skipping deploy because it&#039;s a PR&quot;
 fi
 ```
 
@@ -129,8 +129,8 @@ Edit the `after_success` block of your `.travis.yml` to be like the following:
 
 ```yaml
 after_success:
-  - bin/docker_push.sh
-  - bin/ecs_deploy.sh
+- bin/docker_push.sh
+- bin/ecs_deploy.sh
 ```
 
 Push it, and voilà! Deploy in progress.
