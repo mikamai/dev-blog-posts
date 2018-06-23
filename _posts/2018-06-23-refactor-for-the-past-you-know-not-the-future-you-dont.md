@@ -11,4 +11,4 @@ published: true
 ---
 Technical Debt is inevitable, only you can reduce the interest to be paid
 
-https://levelup.gitconnected.com/how-to-use-technical-debt-in-your-favor-98bae475ba68
+<a href="https://levelup.gitconnected.com/how-to-use-technical-debt-in-your-favor-98bae475ba68" target="_blank" rel="noopener">https://levelup.gitconnected.com/how-to-use-technical-debt-in-your-favor-98bae475ba68</a>
